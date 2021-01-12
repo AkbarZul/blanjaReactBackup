@@ -1,1 +1,0 @@
-Semoga lancar
