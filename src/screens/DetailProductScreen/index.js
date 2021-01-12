@@ -32,9 +32,9 @@ const DetailProductScreen = ({navigation, route}) => {
       });
   };
 
-  const getProducts = async (item) => {
+  const getProducts = async (itemId) => {
     await axios
-      .get(BASE_URL + `/products/` + item)
+      .get(BASE_URL + `/products/` + itemId)
       .then((res) => {
         const products = res.data.data;
         console.log('Detail ', res.data.data);
@@ -64,7 +64,7 @@ const DetailProductScreen = ({navigation, route}) => {
     // console.log('semangat', itemId);
     getProduct(itemId);
     getDataPopular();
-    getProducts(item);
+    getProducts(itemId);
     // getDataCard();
   }, []);
 
@@ -210,7 +210,7 @@ const DetailProductScreen = ({navigation, route}) => {
               return (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('DetailProduct', {item: id, categories: category_name})
+                    navigation.navigate('DetailProduct', {itemId: id, categories: category_name, name: product_name, price: product_price, photo: product_photo})
                   }
                   style={{paddingHorizontal: 10, marginBottom: 20}}
                   key={id}>

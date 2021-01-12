@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, TouchableHighlight} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableHighlight,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Text from '../../../components/Text';
 
@@ -11,50 +17,55 @@ const ShippingAddress = ({navigation}) => {
           <TextInput placeholder="Search" style={styles.form} />
           <Icon name="search" color="gray" size={30} style={styles.icon} />
         </View>
-        <Text children="Shipping address" size={30} style={styles.title} />
-        <View style={styles.card}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text children="Jane Doe" size={20} />
-            <Text children="Change" color="red" size="l" />
+        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 20, marginTop: 20}}>
+          {/* <Text children="Shipping address" size={30} style={styles.title} /> */}
+          <View style={styles.card}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text children="Jane Doe" size={20} />
+              <Text children="Change" color="red" size="l" />
+            </View>
+            <Text
+              children="3 Newbridge Court Chino Hills, CA 91709, United States"
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
           </View>
-          <Text
-            children="3 Newbridge Court Chino Hills, CA 91709, United States"
-            size={17}
-            type="Medium"
-            style={styles.address}
-          />
-        </View>
-        <View style={styles.card}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text children="Jane Doe" size={20} />
-            <Text children="Change" color="red" size="l" />
+          <View style={styles.card}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text children="Jane Doe" size={20} />
+              <Text children="Change" color="red" size="l" />
+            </View>
+            <Text
+              children="3 Newbridge Court Chino Hills, CA 91709, United States"
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
           </View>
-          <Text
-            children="3 Newbridge Court Chino Hills, CA 91709, United States"
-            size={17}
-            type="Medium"
-            style={styles.address}
-          />
-        </View>
-        <View style={styles.card}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text children="Jane Doe" size={20} />
-            <Text children="Change" color="red" size="l" />
+          <View style={styles.card}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text children="Jane Doe" size={20} />
+              <Text children="Change" color="red" size="l" />
+            </View>
+            <Text
+              children="3 Newbridge Court Chino Hills, CA 91709, United States"
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
           </View>
-          <Text
-            children="3 Newbridge Court Chino Hills, CA 91709, United States"
-            size={17}
-            type="Medium"
-            style={styles.address}
-          />
-        </View>
-        <TouchableHighlight
-          activeOpacity={0.6}
-          underlayColor="#DB3022"
-          onPress={() => navigation.navigate('Adding Shipping Address')}
-          style={styles.button}>
-          <Text children="ADD NEW ADDRESS" size="l" />
-        </TouchableHighlight>
+          <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DB3022"
+            onPress={() => navigation.navigate('Adding Shipping Address')}
+            style={styles.button}>
+            <Text children="ADD NEW ADDRESS" size="l" />
+          </TouchableHighlight>
+        </ScrollView>
       </View>
     </>
   );

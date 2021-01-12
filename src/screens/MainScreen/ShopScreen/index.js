@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
+  Image,
 } from 'react-native';
 
 const ShopScreen = ({navigation}) => {
@@ -52,20 +53,26 @@ const ShopScreen = ({navigation}) => {
         <Text style={{color: 'grey', fontSize: 16, marginTop: 30}}>
           Choose Category
         </Text>
-        {category.map(({id_categories, category_name, id}) => {
+        {category.map(({id_categories, category_name, category_photo, id}) => {
           return (
             <View style={styles.garis} key={id_categories}>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('Cataloge', {itemId: id_categories, categories: category_name})
                 }>
+                  <View style={{flexDirection: 'column'}}>
                 <Text style={{fontSize: 16}}>{category_name}</Text>
+                </View>
+                <Image
+                      source={{uri: `${category_photo}`}}
+                      style={{borderRadius: 10, width: 120, height: 100}}
+                    />
               </TouchableOpacity>
             </View>
           );
         })}
       </ScrollView>
-      <Button
+      {/* <Button
         style={styles.button}
         title="Go to Filter"
         onPress={() => navigation.navigate('Filter')}
@@ -79,7 +86,7 @@ const ShopScreen = ({navigation}) => {
         style={styles.button}
         title="Go to Peleman"
         onPress={() => navigation.navigate('Cataloge')}
-      />
+      /> */}
     </>
   );
 };
@@ -105,11 +112,22 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
 
+  // garis: {
+  //   borderBottomColor: '#9B9B9B',
+  //   borderBottomWidth: 1,
+  //   height: 40,
+  //   justifyContent: 'center',
+  //   marginTop: 10,
+  // },
+
   garis: {
-    borderBottomColor: '#9B9B9B',
-    borderBottomWidth: 1,
-    height: 40,
-    justifyContent: 'center',
-    marginTop: 10,
+    backgroundColor: '#ffffff',
+    elevation: 10,
+    marginTop: 30,
+    width: '100%',
+    height: 104,
+    borderRadius: 10,
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
   },
 });
