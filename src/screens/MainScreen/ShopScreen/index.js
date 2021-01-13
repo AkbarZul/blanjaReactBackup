@@ -55,20 +55,28 @@ const ShopScreen = ({navigation}) => {
         </Text>
         {category.map(({id_categories, category_name, category_photo, id}) => {
           return (
-            <View style={styles.garis} key={id_categories}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('Cataloge', {itemId: id_categories, categories: category_name})
-                }>
-                  <View style={{flexDirection: 'column'}}>
-                <Text style={{fontSize: 16}}>{category_name}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Cataloge', {
+                  itemId: id_categories,
+                  categories: category_name,
+                })
+              }
+              key={id_categories}>
+              <View style={styles.garis}>
+                <View>
+                  <Text style={{fontSize: 16, marginLeft: 30}}>
+                    {category_name}
+                  </Text>
                 </View>
-                <Image
-                      source={{uri: `${category_photo}`}}
-                      style={{borderRadius: 10, width: 120, height: 100}}
-                    />
-              </TouchableOpacity>
-            </View>
+                <View>
+                  <Image
+                    source={{uri: `${category_photo}`}}
+                    style={{borderRadius: 10, width: 120, height: 100}}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
@@ -98,6 +106,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#e5e5e5',
     paddingHorizontal: 15,
+    marginBottom: 20,
   },
 
   button: {
@@ -127,7 +136,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 104,
     borderRadius: 10,
+    flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

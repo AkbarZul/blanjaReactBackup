@@ -9,48 +9,55 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-const BagScreen = ({navigation, route}) => {
-  const { addToBag } = route.params;
+
+import { connect } from 'react-redux';
+import { addToBag } from '../../../utils/redux/action/cartAction';
+const BagScreen = ({navigation, route, cart}) => {
+  // const { addToBag } = route.params;
   return (
     <>
       <ScrollView style={styles.container}>
         <Text style={styles.bag}>My Bag</Text>
-        <View style={styles.bag2}>
-          {/* <Image source={require('../../../assets/images/card1.png')} /> */}
-          <Image
-                      source={{uri: `${JSON.parse(addToBag.photo).shift()}`}}
-                      style={{borderRadius: 10, width: 120, height: 104}}
-                    />
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text>{addToBag.name}</Text>
-              <View style={{flexDirection: 'row', marginTop: 7}}>
-                <Text>Color: grey</Text>
-                <Text style={{marginLeft: 5}}>Sizes: {addToBag.size}</Text>
-              </View>
-            </View>
-            {/* <View style={{alignItems: 'flex-end'}}>
+        {cart.map((item) => {
+          return (
+            <View style={styles.bag2} key={item.id}>
+              {/* <Image source={require('../../../assets/images/card1.png')} /> */}
+              <Image
+                source={{uri: `${item.photo}`}}
+                style={{borderRadius: 10, width: 120, height: 104}}
+              />
+              <View style={{flexDirection: 'column'}}>
+                <View>
+                  <Text>{item.name}</Text>
+                  <View style={{flexDirection: 'row', marginTop: 7}}>
+                    <Text>Color: grey</Text>
+                    {/* <Text style={{marginLeft: 5}}>Sizes: {addToBag.size}</Text> */}
+                  </View>
+                </View>
+                {/* <View style={{alignItems: 'flex-end'}}>
               <Text>Titik tiga</Text>
             </View> */}
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="minus" color="black" />
+                <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity>
+                    <View style={styles.circle}>
+                      <Icon name="minus" color="black" />
+                    </View>
+                  </TouchableOpacity>
+                  <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
+                  <TouchableOpacity>
+                    <View style={styles.circle}>
+                      <Icon name="plus" color="black" />
+                    </View>
+                  </TouchableOpacity>
+                  <View>
+                    {/* <Text style={{marginTop: 30, marginLeft: 60}}>Rp. {addToBag.price}</Text> */}
+                  </View>
                 </View>
-              </TouchableOpacity>
-              <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="plus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <View>
-                <Text style={{marginTop: 30, marginLeft: 60}}>Rp. {addToBag.price}</Text>
               </View>
             </View>
-          </View>
-        </View>
-{/* 
+          );
+        })}
+        {/* 
         <View style={styles.bag2}>
           <Image source={require('../../../assets/images/card2.png')} />
           <View style={{flexDirection: 'column'}}>
@@ -231,4 +238,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-export default BagScreen;
+// export default BagScreen;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.cart,
+  };
+};
+
+export default connect(mapStateToProps)(BagScreen);

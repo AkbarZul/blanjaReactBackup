@@ -8,9 +8,30 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Icon } from 'react-native-vector-icons/Icon';
 import {Text} from '../../../components';
 import {colors} from '../../../utils';
+
+const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const fullName = await AsyncStorage.getItem('fullName');
+    const email = await AsyncStorage.getItem('email');
+    if (token, fullName, email !== null) {
+      console.log("token screen ", token);
+      console.log('profile');
+      return true;
+    } else {
+      console.log('token null');
+      return false;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+getToken();
+console.log('test');
 
 const ProfileScreen = ({navigation}) => {
   return (

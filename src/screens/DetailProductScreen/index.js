@@ -11,13 +11,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ButtonSubmit, Text} from '../../components';
 import {colors} from '../../utils';
 
+import { connect } from 'react-redux';
+import { addToBag } from '../../utils/redux/action/cartAction';
+
 const BASE_URL = 'http://192.168.1.4:9005';
 
-const DetailProductScreen = ({navigation, route}) => {
+const DetailProductScreen = ({navigation, route, addToBag}) => {
   const {itemId, item, categories} = route.params;
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState({});
   const [cardTwo, setCardTwo] = useState([]);
+
+  const [picture, setPicture] = useState([]);
 
   const getProduct = async (itemId) => {
     await axios
@@ -25,7 +30,10 @@ const DetailProductScreen = ({navigation, route}) => {
       .then((res) => {
         const product = res.data.data;
         console.log('Detail ', res.data.data);
+        const picture2 = res.data.data.product_photo;
+        const picture3 = JSON.parse(picture2)
         setProduct(product);
+        setPicture(picture3);
       })
       .catch((err) => {
         console.log(err);
@@ -239,19 +247,34 @@ const DetailProductScreen = ({navigation, route}) => {
       </ScrollView>
       <View style={{bottom: 0, backgroundColor: 'white', width: '100%'}}>
         <ButtonSubmit onPress={() => {
-          navigation.navigate('Bag', {
-            addToBag: {
-              name: product.product_name,
-              photo: product.product_photo,
-              price: product.product_price,
-              size: product.size,
-            }
-          })
-        }} bg="red" title="ADD TO CART" />
+          addToBag(
+            product.product_id,
+            product.product_name,
+            product.product_price,
+            picture[0]
+          )
+          // navigation.navigate('Bag', {
+            // addToBag: {
+            //   // name: product.product_name,
+            //   // photo: product.product_photo,
+            //   // price: product.product_price,
+            //   // size: product.size,
+            // }
+          }}
+         bg="red" title="ADD TO CART" />
       </View>
     </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToBag: (id, name, price, photo) => 
+    dispatch(addToBag(id, name, price, photo)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(DetailProductScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -331,4 +354,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-export default DetailProductScreen;
+// export default DetailProductScreen;

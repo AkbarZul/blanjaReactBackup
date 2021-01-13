@@ -80,7 +80,7 @@ const HomeScreen = ({navigation}) => {
           </View>
           <View>
             <Text
-              onPress={() => navigation.navigate('DetailProduct')}
+              onPress={() => navigation.navigate('Catalog')}
               children="See All"
               size="m"
               style={styles.childText}
@@ -105,7 +105,10 @@ const HomeScreen = ({navigation}) => {
               return (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('DetailProduct', {itemId: id, categories: category_name})
+                    navigation.navigate('DetailProduct', {
+                      itemId: id,
+                      categories: category_name,
+                    })
                   }
                   style={{paddingHorizontal: 10}}
                   key={id}>
@@ -140,7 +143,12 @@ const HomeScreen = ({navigation}) => {
             />
           </View>
           <View>
-            <Text children="See All" size="m" style={styles.childText} />
+            <Text
+              onPress={() => navigation.navigate('Catalog')}
+              children="See All"
+              size="m"
+              style={styles.childText}
+            />
           </View>
         </View>
 
@@ -161,7 +169,10 @@ const HomeScreen = ({navigation}) => {
               return (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('DetailProduct', {itemId: id, categories: category_name})
+                    navigation.navigate('DetailProduct', {
+                      itemId: id,
+                      categories: category_name,
+                    })
                   }
                   style={{paddingHorizontal: 10, marginBottom: 20}}
                   key={id}>

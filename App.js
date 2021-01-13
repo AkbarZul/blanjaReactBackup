@@ -1,9 +1,15 @@
 //import liraries
 import React, {useContext} from 'react';
-import {MainNavigation} from './src/navigation'
+import {MainNavigation} from './src/navigation';
+
+// redux
+import {Provider} from 'react-redux';
+import store from './src/utils/redux/store';
 function App() {
   return (
-   <MainNavigation/>
+    <Provider store={store}>
+      <MainNavigation />
+    </Provider>
   );
 }
 

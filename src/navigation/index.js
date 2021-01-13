@@ -28,6 +28,7 @@ import {
   ListScreen,
   CheckOutScreen,
   CatalogeScreen,
+  MainCatalogScreen,
 } from '../screens';
 
 const HomeStack = createStackNavigator();
@@ -107,6 +108,21 @@ const HomeStackScreen = () => (
       component={NotificationScreen}
       options={{
         title: 'Notification',
+        headerStyle: {
+          backgroundColor: colors.red,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        BottomTab: false,
+      }}
+    />
+     <HomeStack.Screen
+      name="Catalog"
+      component={MainCatalogScreen}
+      options={{
+        title: 'Catalog',
         headerStyle: {
           backgroundColor: colors.red,
         },

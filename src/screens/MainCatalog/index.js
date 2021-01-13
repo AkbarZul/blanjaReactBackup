@@ -14,17 +14,15 @@ import ActionSheet from 'react-native-actions-sheet';
 const BASE_URL = 'http://192.168.1.4:9005';
 const actionSheetRef = createRef();
 
-export default function CatalogeScreen({navigation, route}) {
-  let actionSheet;
-  const {itemId} = route.params;
+const MainCatalogScreen = ({navigation}) => {
   const [products, setProducts] = useState([]);
 
-  const getProduct = async (itemId) => {
+  const getProduct = async () => {
     await axios
-      .get(BASE_URL + `/categories/` + itemId)
+      .get(BASE_URL + `/products?keyword=created_at DESC&limit=100`)
       .then((res) => {
-        const products = res.data.data.product;
-        // console.log('good ponsel', res.data.data.product);
+        const products = res.data.data.products;
+        // console.log('Data CatalogMain  ', res.data.data.products);
         setProducts(products);
       })
       .catch((err) => {
@@ -34,8 +32,8 @@ export default function CatalogeScreen({navigation, route}) {
 
   useEffect(() => {
     // code to run on component mount
-    // console.log('tiktok', itemId);
-    getProduct(itemId);
+    // console.log('IDNya', itemId);
+    getProduct();
     // getDataCard();
   }, []);
 
@@ -67,14 +65,13 @@ export default function CatalogeScreen({navigation, route}) {
           </TouchableOpacity>
         )}
       />
-      <Button
+      {/* <Button
         style={styles.button}
         title="Go to BottomSheet"
         onPress={() => {
           actionSheetRef.current?.setModalVisible();
         }}
       />
-
       <ActionSheet gestureEnabled ref={actionSheetRef}>
         <View>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
@@ -87,10 +84,12 @@ export default function CatalogeScreen({navigation, route}) {
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
         </View>
-      </ActionSheet>
+      </ActionSheet> */}
     </>
   );
-}
+};
+
+export default MainCatalogScreen;
 
 const styles = StyleSheet.create({
   gridView: {
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 16,
     color: '#000000',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   itemCode: {
     fontWeight: '600',

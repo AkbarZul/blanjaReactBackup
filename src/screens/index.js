@@ -24,6 +24,7 @@ import ListScreen from './ListScreen';
 import CheckOutScreen from './MainScreen/CheckOutScreen';
 
 import CatalogeScreen from './CatalogeScreen';
+import MainCatalogScreen from './MainCatalog';
 
 export {
   LoginScreen,
@@ -48,4 +49,5 @@ export {
   ListScreen,
   CheckOutScreen,
   CatalogeScreen,
+  MainCatalogScreen,
 };
