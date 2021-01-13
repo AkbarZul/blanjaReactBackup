@@ -50,7 +50,7 @@ const BagScreen = ({navigation, route, cart}) => {
                     </View>
                   </TouchableOpacity>
                   <View>
-                    {/* <Text style={{marginTop: 30, marginLeft: 60}}>Rp. {addToBag.price}</Text> */}
+                    <Text style={{marginTop: 30, marginLeft: 60}}>Rp. {item.price}</Text>
                   </View>
                 </View>
               </View>
