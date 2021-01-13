@@ -48,11 +48,12 @@ const ShopScreen = ({navigation}) => {
     <>
       <ScrollView style={styles.container}>
         <TouchableOpacity style={styles.button}>
-          <Text style={{color: 'white'}}>VIEW ALL ITEMS</Text>
+          <Text style={{color: 'white', fontSize: 24}}>SUMMER SALES</Text>
+          <Text style={{color: 'white', fontSize: 14}}>Up to 50% off</Text>
         </TouchableOpacity>
-        <Text style={{color: 'grey', fontSize: 16, marginTop: 30}}>
+        {/* <Text style={{color: 'grey', fontSize: 16, marginTop: 30}}>
           Choose Category
-        </Text>
+        </Text> */}
         {category.map(({id_categories, category_name, category_photo, id}) => {
           return (
             <TouchableOpacity
@@ -111,13 +112,13 @@ const styles = StyleSheet.create({
 
   button: {
     width: '100%',
-    height: 48,
+    height: 100,
     backgroundColor: 'red',
     // color: 'white',
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 10,
     elevation: 20,
   },
 

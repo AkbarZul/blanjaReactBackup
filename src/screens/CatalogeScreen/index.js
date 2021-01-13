@@ -10,6 +10,7 @@ import {
 import {FlatGrid} from 'react-native-super-grid';
 import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const BASE_URL = 'http://192.168.1.4:9005';
 const actionSheetRef = createRef();
@@ -41,6 +42,26 @@ export default function CatalogeScreen({navigation, route}) {
 
   return (
     <>
+      <View
+        style={{
+          backgroundColor: '#F9F9F9',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingHorizontal: 10,
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Icon name="filter" size={25} />
+          <Text>Filters</Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: -35}}>
+          {/* <Icon name="filter" size={25} /> */}
+          <Image source={require('../../assets/images/sort.png')} />
+          <Text style={{marginLeft: 5}}>Prices</Text>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <Icon name="apps-sharp" size={25} />
+        </View>
+      </View>
       <FlatGrid
         itemDimension={130}
         data={products}
@@ -56,13 +77,13 @@ export default function CatalogeScreen({navigation, route}) {
                 categories: item.category_name,
               })
             }>
-            <View style={[styles.itemContainer, {backgroundColor: '#ffffff'}]}>
+            <View style={[styles.itemContainer]}>
               <Image
                 source={{uri: `${JSON.parse(item.product_photo).shift()}`}}
                 style={{borderRadius: 10, width: '100%', height: 100}}
               />
               <Text style={styles.itemName}>{item.product_name}</Text>
-              <Text style={styles.itemCode}>{item.product_price}</Text>
+              <Text style={styles.itemCode}>Rp.{item.product_price}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -102,6 +123,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     height: 150,
+    marginTop: 10,
   },
   itemName: {
     fontSize: 16,
