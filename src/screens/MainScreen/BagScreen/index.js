@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { connect } from 'react-redux';
-import { addToBag } from '../../../utils/redux/action/cartAction';
-const BagScreen = ({navigation, route, cart}) => {
+import {connect} from 'react-redux';
+import {deleteBag} from '../../../utils/redux/action/cartAction';
+const BagScreen = ({navigation, cart, deleteBag}) => {
   // const { addToBag } = route.params;
   return (
     <>
@@ -24,14 +24,31 @@ const BagScreen = ({navigation, route, cart}) => {
               {/* <Image source={require('../../../assets/images/card1.png')} /> */}
               <Image
                 source={{uri: `${item.photo}`}}
-                style={{borderRadius: 10, width: 120, height: 104}}
+                style={{borderRadius: 10, width: 120, height: 130}}
               />
-              <View style={{flexDirection: 'column'}}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  marginHorizontal: 10,
+                  marginTop: 5,
+                }}>
                 <View>
-                  <Text>{item.name}</Text>
-                  <View style={{flexDirection: 'row', marginTop: 7}}>
-                    <Text>Color: grey</Text>
-                    {/* <Text style={{marginLeft: 5}}>Sizes: {addToBag.size}</Text> */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View>
+                      <Text>{item.name}</Text>
+                      <View style={{flexDirection: 'row', marginTop: 7}}>
+                        <Text>Color: grey</Text>
+                        {/* <Text style={{marginLeft: 5}}>Sizes: {item.size}</Text> */}
+                      </View>
+                    </View>
+                    <TouchableOpacity onPress={() => deleteBag(item.id)}>
+                      <Icon name="delete" size={30} />
+                      {/* <Text>delete</Text> */}
+                    </TouchableOpacity>
                   </View>
                 </View>
                 {/* <View style={{alignItems: 'flex-end'}}>
@@ -50,103 +67,15 @@ const BagScreen = ({navigation, route, cart}) => {
                     </View>
                   </TouchableOpacity>
                   <View>
-                    <Text style={{marginTop: 30, marginLeft: 60}}>Rp. {item.price}</Text>
+                    <Text style={{marginTop: 30, marginLeft: 40}}>
+                      Rp. {item.price}
+                    </Text>
                   </View>
                 </View>
               </View>
             </View>
           );
         })}
-        {/* 
-        <View style={styles.bag2}>
-          <Image source={require('../../../assets/images/card2.png')} />
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text>Sweater</Text>
-              <View style={{flexDirection: 'row', marginTop: 7}}>
-                <Text>Color: grey</Text>
-                <Text style={{marginLeft: 5}}>Sizes: L</Text>
-              </View>
-            </View>
-           
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="minus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="plus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <View>
-                <Text style={{marginTop: 30, marginLeft: 120}}>30$</Text>
-              </View>
-            </View>
-          </View>
-        </View> */}
-
-        {/* <View style={styles.bag2}>
-          <Image source={require('../../../assets/images/card1.png')} />
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text>Sweater</Text>
-              <View style={{flexDirection: 'row', marginTop: 7}}>
-                <Text>Color: grey</Text>
-                <Text style={{marginLeft: 5}}>Sizes: L</Text>
-              </View>
-            </View>
-            
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="minus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="plus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <View>
-                <Text style={{marginTop: 30, marginLeft: 120}}>30$</Text>
-              </View>
-            </View>
-          </View>
-        </View> */}
-
-        {/* <View style={styles.bag2}>
-          <Image source={require('../../../assets/images/card2.png')} />
-          <View style={{flexDirection: 'column'}}>
-            <View>
-              <Text>Sweater</Text>
-              <View style={{flexDirection: 'row', marginTop: 7}}>
-                <Text>Color: grey</Text>
-                <Text style={{marginLeft: 5}}>Sizes: L</Text>
-              </View>
-            </View>
-            
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="minus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
-              <TouchableOpacity>
-                <View style={styles.circle}>
-                  <Icon name="plus" color="black" />
-                </View>
-              </TouchableOpacity>
-              <View>
-                <Text style={{marginTop: 30, marginLeft: 120}}>30$</Text>
-              </View>
-            </View>
-          </View>
-        </View> */}
       </ScrollView>
       <View style={styles.bottom}>
         <View
@@ -187,7 +116,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     marginTop: 30,
     width: '100%',
-    height: 104,
+    height: 130,
     borderRadius: 10,
     flexDirection: 'row',
     // justifyContent: 'space-between',
@@ -245,4 +174,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(BagScreen);
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteBag: (id) => dispatch(deleteBag(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BagScreen);

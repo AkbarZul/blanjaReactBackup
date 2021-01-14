@@ -11,8 +11,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ButtonSubmit, Text} from '../../components';
 import {colors} from '../../utils';
 
-import { connect } from 'react-redux';
-import { addToBag } from '../../utils/redux/action/cartAction';
+import {connect} from 'react-redux';
+import {addToBag} from '../../utils/redux/action/cartAction';
 
 const BASE_URL = 'http://192.168.1.4:9005';
 
@@ -31,7 +31,7 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
         const product = res.data.data;
         console.log('Detail ', res.data.data);
         const picture2 = res.data.data.product_photo;
-        const picture3 = JSON.parse(picture2)
+        const picture3 = JSON.parse(picture2);
         setProduct(product);
         setPicture(picture3);
       })
@@ -40,18 +40,18 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
       });
   };
 
-  const getProducts = async (itemId) => {
-    await axios
-      .get(BASE_URL + `/products/` + itemId)
-      .then((res) => {
-        const products = res.data.data;
-        console.log('Detail ', res.data.data);
-        setProducts(products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getProducts = async (item) => {
+  //   await axios
+  //     .get(BASE_URL + `/products/` + item)
+  //     .then((res) => {
+  //       const products = res.data.data;
+  //       console.log('Detail ', res.data.data);
+  //       setProducts(products);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const getDataPopular = () => {
     axios
@@ -66,15 +66,18 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
       });
   };
 
-
   useEffect(() => {
     // code to run on component mount
     // console.log('semangat', itemId);
     getProduct(itemId);
     getDataPopular();
-    getProducts(itemId);
+
     // getDataCard();
   }, []);
+
+  // useEffect(() => {
+  //   getDataPopular(itemId);
+  // }, [cardTwo]);
 
   return (
     <>
@@ -201,59 +204,67 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
           <Text children="12 items" size="m" color="gray" />
         </View>
         <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.slider}>
-          {cardTwo.map(
-            ({
-              product_id,
-              product_name,
-              product_price,
-              product_photo,
-              category_name,
-              rating,
-              id,
-            }) => {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('DetailProduct', {itemId: id, categories: category_name, name: product_name, price: product_price, photo: product_photo})
-                  }
-                  style={{paddingHorizontal: 10, marginBottom: 20}}
-                  key={id}>
-                  <View>
-                    <Image
-                      // source={require('../../../assets/images/home3.png')}
-                      source={{uri: `${JSON.parse(product_photo).shift()}`}}
-                      style={{borderRadius: 10, width: 120, height: 170}}
-                    />
-                    <View style={styles.rating}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.slider}>
+            {cardTwo.map(
+              ({
+                product_id,
+                product_name,
+                product_price,
+                product_photo,
+                category_name,
+                rating,
+                id,
+              }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('DetailProduct', {
+                        itemId: id,
+                        categories: category_name,
+                        name: product_name,
+                        price: product_price,
+                        photo: product_photo,
+                      })
+                    }
+                    style={{paddingHorizontal: 10, marginBottom: 20}}
+                    key={id}>
+                    <View>
                       <Image
-                        source={require('../../assets/images/Star.png')}
+                        // source={require('../../../assets/images/home3.png')}
+                        source={{uri: `${JSON.parse(product_photo).shift()}`}}
+                        style={{borderRadius: 10, width: 120, height: 170}}
                       />
+                      <View style={styles.rating}>
+                        <Image
+                          source={require('../../assets/images/Star.png')}
+                        />
 
-                      <Text children={rating} />
+                        <Text children={rating} />
+                      </View>
+                      <Text children={product_name} />
+                      <Text children={product_price} />
                     </View>
-                    <Text children={product_name} />
-                    <Text children={product_price} />
-                  </View>
-                </TouchableOpacity>
-              );
-            },
-          )}
-        </ScrollView>
+                  </TouchableOpacity>
+                );
+              },
+            )}
+          </ScrollView>
         </View>
       </ScrollView>
       <View style={{bottom: 0, backgroundColor: 'white', width: '100%'}}>
-        <ButtonSubmit onPress={() => {
-          addToBag(
-            product.product_id,
-            product.product_name,
-            product.product_price,
-            picture[0]
-          )
-          // navigation.navigate('Bag', {
+        <ButtonSubmit
+          onPress={() => {
+            addToBag(
+              itemId,
+              product.product_name,
+              product.product_price,
+              picture[0],
+              // product.size,
+            );
+            // navigation.navigate('Bag', {
             // addToBag: {
             //   // name: product.product_name,
             //   // photo: product.product_photo,
@@ -261,7 +272,9 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
             //   // size: product.size,
             // }
           }}
-         bg="red" title="ADD TO CART" />
+          bg="red"
+          title="ADD TO CART"
+        />
       </View>
     </>
   );
@@ -269,8 +282,8 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToBag: (id, name, price, photo) => 
-    dispatch(addToBag(id, name, price, photo)),
+    addToBag: (id, name, price, photo) =>
+      dispatch(addToBag(id, name, price, photo)),
   };
 };
 
