@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,10 +7,59 @@ import {
   TouchableHighlight,
   ScrollView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Text from '../../../components/Text';
 
 const ShippingAddress = ({navigation}) => {
+  const BASE_URL = 'http://192.168.1.4:9005';
+  const [address, setAddress] = useState([]);
+
+  const getToken = async () => {
+    try {
+      console.log('ini');
+      const token = await AsyncStorage.getItem('token');
+      const fullName = await AsyncStorage.getItem('fullName');
+      const email = await AsyncStorage.getItem('email');
+      if ((token, fullName, email !== null)) {
+        // value previously stored
+        console.log('Token ProfilePage ', token);
+        console.log('ProfilePage');
+        return true;
+      } else {
+        console.log('token null');
+        return false;
+      }
+    } catch (e) {
+      // error reading value
+      console.log(e);
+    }
+  };
+  getToken();
+  console.log(`ini tester`);
+
+  const getAddressUser = async () => {
+    // const token =  AsyncStorage.getItem('token');
+    await axios
+      .get(BASE_URL + '/address', {
+        headers: {
+          'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        const address = res.data.data;
+        console.log('KONTOL', address);
+        setAddress(address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAddressUser();
+  },[]);
+
   return (
     <>
       <View style={styles.container}>
@@ -17,9 +67,59 @@ const ShippingAddress = ({navigation}) => {
           <TextInput placeholder="Search" style={styles.form} />
           <Icon name="search" color="gray" size={30} style={styles.icon} />
         </View>
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 20, marginTop: 20}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{marginBottom: 20, marginTop: 20}}>
           {/* <Text children="Shipping address" size={30} style={styles.title} /> */}
+          {address.map(
+            ({
+              id,
+              fullname,
+              address,
+              city,
+              zip_code,
+              country,
+            }) => {
+              return (
           <View style={styles.card}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text children={fullname} size={20} style={{fontWeight: 'bold'}} />
+              <Text children="Change" color="red" size="l" />
+            </View>
+            <Text
+              children={address}
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
+            <View style={{flexDirection: 'row', marginBottom: 5,}}>
+              <Text
+              children={`${city},`}
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
+                <Text
+              children={`${zip_code},`}
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
+              <Text
+              children={`${country}`}
+              size={17}
+              type="Medium"
+              style={styles.address}
+            />
+            </View>
+          
+          </View>
+              )
+            }
+          )}
+
+          {/* <View style={styles.card}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text children="Jane Doe" size={20} />
@@ -44,20 +144,7 @@ const ShippingAddress = ({navigation}) => {
               type="Medium"
               style={styles.address}
             />
-          </View>
-          <View style={styles.card}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text children="Jane Doe" size={20} />
-              <Text children="Change" color="red" size="l" />
-            </View>
-            <Text
-              children="3 Newbridge Court Chino Hills, CA 91709, United States"
-              size={17}
-              type="Medium"
-              style={styles.address}
-            />
-          </View>
+          </View> */}
           <TouchableHighlight
             activeOpacity={0.6}
             underlayColor="#DB3022"
@@ -104,18 +191,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     marginVertical: 10,
+    paddingHorizontal: 15,
   },
   address: {
     textAlign: 'left',
     textAlignVertical: 'center',
     lineHeight: 21,
-    marginRight: 140,
+    marginRight: 5,
     letterSpacing: 0.15,
-    paddingVertical: 15,
+    // paddingVertical: 10,
+    marginTop: 10,
   },
   button: {
     borderRadius: 50,
     borderWidth: 1,
+    borderBottomWidth: 2,
     borderColor: 'black',
     width: '100%',
     height: 50,

@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {colors} from '../utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   HomeScreen,
@@ -30,6 +31,27 @@ import {
   CatalogeScreen,
   MainCatalogScreen,
 } from '../screens';
+
+const getToken = async () => {
+  try {
+    console.log('ini');
+    const token = await AsyncStorage.getItem('token');
+    if (token !== null) {
+      // value previously stored
+      console.log('Token Sukses ', token);
+      console.log('Successs Login cuy');
+      return true;
+    } else {
+      console.log('token null');
+      return false;
+    }
+  } catch (e) {
+    // error reading value
+    console.log(e);
+  }
+};
+getToken();
+console.log(`ini tester`);
 
 const HomeStack = createStackNavigator();
 const AuthStack = createStackNavigator();

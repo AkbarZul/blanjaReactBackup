@@ -36,12 +36,12 @@ const getData = async () => {
 };
 
 const LoginScreen = ({navigation}) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
     const data = {
-      username: username,
+      email: email,
       password: password,
     };
     axios
@@ -100,8 +100,8 @@ const LoginScreen = ({navigation}) => {
       <View style={styles.FormInput}>
         <View style={styles.pass}>
           <OutlineInput
-            value={username}
-            onChangeText={(username) => setUsername(username)}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
             label="Username"
             activeValueColor="black"
             activeBorderColor="green"
