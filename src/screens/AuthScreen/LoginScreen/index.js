@@ -13,6 +13,14 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 
 import OutlineInput from 'react-native-outline-input';
 
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem('token', value);
+  } catch (e) {
+    
+  }
+}
+
 const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('token');
@@ -31,7 +39,7 @@ const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = ({navigation}) => {
+  const handleSubmit = () => {
     const data = {
       username: username,
       password: password,
@@ -42,15 +50,19 @@ const LoginScreen = ({navigation}) => {
         console.log(res.data.data.token);
         console.log(res.data.data.userId);
         const token = res.data.data.token;
-        const id = res.data.data.userId;
-        const userId = id.toString();
-        console.log(typeof userId);
+        const fullName = res.data.data.full_name;
+        const email = res.data.data.email;
+        const id = res.data.data.user_id;
+        const userid = id.toString();
+        console.log(typeof userid);
 
         await AsyncStorage.setItem('token', token);
-        await AsyncStorage.setItem('userId', userId);
+        await AsyncStorage.setItem('userid', userid);
+        await AsyncStorage.setItem('fullName', fullName);
+        await AsyncStorage.setItem('email', email);
         console.log('done');
         await getData();
-        // navigation.navigate('Home');
+        navigation.navigate('Home');
         console.log('done2');
       })
       .catch((err) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,37 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {connect} from 'react-redux';
 import {deleteBag} from '../../../utils/redux/action/cartAction';
+
+
 const BagScreen = ({navigation, cart, deleteBag}) => {
   // const { addToBag } = route.params;
+
+  // const [count, setCount] = useState(0);
+
+  // tambah = () => {
+  //   setCount(count + 1);
+  // };
+
+  // kurang = () => {
+  //   setCount(count - 1);
+  // };
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+
+  useEffect(() => {
+    let items = 0;
+    let prices = 0;
+
+    cart.forEach(item => {
+      items += item.qty;
+      prices += item.qty * item.price;
+    });
+
+    setTotalItems(items);
+    setTotalPrice(prices)
+  }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+  
   return (
     <>
       <ScrollView style={styles.container}>
@@ -42,7 +71,7 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
                       <Text>{item.name}</Text>
                       <View style={{flexDirection: 'row', marginTop: 7}}>
                         <Text>Color: grey</Text>
-                        {/* <Text style={{marginLeft: 5}}>Sizes: {item.size}</Text> */}
+                        <Text style={{marginLeft: 5}}>Sizes: {item.size}</Text>
                       </View>
                     </View>
                     <TouchableOpacity onPress={() => deleteBag(item.id)}>
@@ -60,7 +89,7 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
                       <Icon name="minus" color="black" />
                     </View>
                   </TouchableOpacity>
-                  <Text style={{marginTop: 27, marginRight: 9}}>1</Text>
+                  <Text style={{marginTop: 27, marginRight: 9}}>{item.qty}</Text>
                   <TouchableOpacity>
                     <View style={styles.circle}>
                       <Icon name="plus" color="black" />
@@ -85,7 +114,7 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
             marginTop: 25,
           }}>
           <Text>Total Unmount:</Text>
-          <Text>112$</Text>
+          <Text>Rp. {totalPrice}</Text>
         </View>
         <TouchableHighlight
           activeOpacity={0.6}
@@ -174,10 +203,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    deleteBag: (id) => dispatch(deleteBag(id))
-  }
-}
+    deleteBag: (id) => dispatch(deleteBag(id)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BagScreen);

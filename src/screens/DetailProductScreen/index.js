@@ -262,7 +262,7 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
               product.product_name,
               product.product_price,
               picture[0],
-              // product.size,
+              product.size,
             );
             // navigation.navigate('Bag', {
             // addToBag: {
@@ -282,8 +282,8 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToBag: (id, name, price, photo) =>
-      dispatch(addToBag(id, name, price, photo)),
+    addToBag: (id, name, price, photo, size, qty) =>
+      dispatch(addToBag(id, name, price, photo, size, qty)),
   };
 };
 
