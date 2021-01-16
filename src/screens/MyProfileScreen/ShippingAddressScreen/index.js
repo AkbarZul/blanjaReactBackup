@@ -81,7 +81,7 @@ const ShippingAddress = ({navigation}) => {
               country,
             }) => {
               return (
-          <View style={styles.card}>
+          <View style={styles.card} key={id}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text children={fullname} size={20} style={{fontWeight: 'bold'}} />

@@ -70,10 +70,10 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
     // code to run on component mount
     // console.log('semangat', itemId);
     getProduct(itemId);
-    getDataPopular();
+    getDataPopular(itemId);
 
     // getDataCard();
-  }, []);
+  }, [itemId]);
 
   // useEffect(() => {
   //   getDataPopular(itemId);
@@ -224,9 +224,6 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
                       navigation.navigate('DetailProduct', {
                         itemId: id,
                         categories: category_name,
-                        name: product_name,
-                        price: product_price,
-                        photo: product_photo,
                       })
                     }
                     style={{paddingHorizontal: 10, marginBottom: 20}}
