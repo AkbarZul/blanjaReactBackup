@@ -25,6 +25,8 @@ import CheckOutScreen from './MainScreen/CheckOutScreen';
 
 import CatalogeScreen from './CatalogeScreen';
 import MainCatalogScreen from './MainCatalog';
+import SplashScreen from './SplashScreen';
+import SuccessScreen from './SuccessScreen';
 
 export {
   LoginScreen,
@@ -50,4 +52,6 @@ export {
   CheckOutScreen,
   CatalogeScreen,
   MainCatalogScreen,
+  SplashScreen,
+  SuccessScreen,
 };

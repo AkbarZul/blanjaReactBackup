@@ -122,7 +122,8 @@ export default class CheckOut extends Component {
           <TouchableHighlight
             activeOpacity={0.6}
             underlayColor="#DB3022"
-            onPress={() => navigation.navigate('CheckOut')}
+            // onPress={() => navigation.navigate('CheckOut')}
+            onPress={() => this.props.navigation.navigate('Success')}
             style={styles.button}>
             <Text>SUBMIT ORDER</Text>
           </TouchableHighlight>

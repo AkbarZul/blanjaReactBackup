@@ -30,6 +30,8 @@ import {
   CheckOutScreen,
   CatalogeScreen,
   MainCatalogScreen,
+  SplashScreen,
+  SuccessScreen,
 } from '../screens';
 
 const getToken = async () => {
@@ -104,6 +106,13 @@ const MainScreenView = () => (
 const HomeStackScreen = () => (
   <HomeStack.Navigator>
     <HomeStack.Screen
+      name="Splash"
+      component={SplashScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <HomeStack.Screen
       name="Home"
       component={MainScreenView}
       options={{
@@ -113,8 +122,8 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="DetailProduct"
       component={DetailProductScreen}
-      options={({ route }) => ({
-        title: route.params.categories ,
+      options={({route}) => ({
+        title: route.params.categories,
         // headerStyle: {
         //   backgroundColor: colors.red,
         // },
@@ -140,7 +149,7 @@ const HomeStackScreen = () => (
         BottomTab: false,
       }}
     />
-     <HomeStack.Screen
+    <HomeStack.Screen
       name="Catalog"
       component={MainCatalogScreen}
       options={{
@@ -174,6 +183,13 @@ const AuthStackScreen = () => (
     <AuthStack.Screen
       name="Adding Shipping Address"
       component={AddingShippingAddressScreen}
+    />
+    <AuthStack.Screen
+      name="Success"
+      component={SuccessScreen}
+      options={{
+        headerShown: false,
+      }}
     />
     <AuthStack.Screen
       name="Login"
