@@ -10,19 +10,43 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import PushNotification from 'react-native-push-notification';
 import {HeaderHome} from '../../../components';
 import {Text} from '../../../components';
 import {IconStarAct} from '../../../assets/icons';
+import {
+  showNotification,
+  handleCancel,
+  handleScheduledNotification,
+} from '../../../notif';
 
 import {colors} from '../../../utils';
 
 const HomeScreen = ({navigation}) => {
+  const channel = 'notif';
   const BASE_URL = 'http://192.168.1.4:9005';
   const [card, setCard] = useState([]);
   const [cardTwo, setCardTwo] = useState([]);
 
   useEffect(() => {
+    PushNotification.createChannel(
+      {
+        channelId: 'notif',
+        channelName: 'My Notification channel',
+        channelDescription: 'A channel to categories your notification',
+        soundName: 'default',
+        importance: 4,
+        vibrate: true,
+      },
+      (created) => console.log(`createchannel returned '${created}'`),
+    );
     // code to run on component mount
+  }, []);
+
+  useEffect(() => {
+    PushNotification.getChannels((channel_ids) => {
+      console.log(channel_ids);
+    });
     getDataNew();
     getDataPopular();
   }, []);
@@ -134,7 +158,15 @@ const HomeScreen = ({navigation}) => {
             },
           )}
         </ScrollView>
-
+        <TouchableOpacity
+          onPress={() =>
+            showNotification('hello', 'This is Notification', channel)
+          }>
+          <Text children="Test notification bismillah" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text children="cancel notification" onPress={handleCancel} />
+        </TouchableOpacity>
         <View style={styles.wrapTitleText}>
           <View>
             <Text children="Popular" size="xl3" style={styles.titeText} />
