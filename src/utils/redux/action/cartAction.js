@@ -6,6 +6,7 @@ export const addToBag = (
   product_price,
   product_photo,
   product_size,
+  product_color,
   qty,
 ) => {
   return {
@@ -16,6 +17,7 @@ export const addToBag = (
       price: product_price,
       photo: product_photo,
       size: product_size,
+      color: product_color,
       qty: qty,
     },
   };
@@ -24,6 +26,24 @@ export const addToBag = (
 export const deleteBag = (itemId) => {
   return {
     type: actionTypes.REMOVE_FROM_BAG,
+    payload: {
+      id: itemId,
+    },
+  };
+};
+
+export const increaseQuantity = (itemId) => {
+  return {
+    type: actionTypes.QUANTITY_INCREASED,
+    payload: {
+      id: itemId,
+    },
+  };
+};
+
+export const decreaseQuantity = (itemId) => {
+  return {
+    type: actionTypes.QUANTITY_DECREASED,
     payload: {
       id: itemId,
     },

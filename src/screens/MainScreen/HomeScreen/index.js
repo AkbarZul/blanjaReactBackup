@@ -100,6 +100,7 @@ const HomeScreen = ({navigation}) => {
               product_photo,
               rating,
               category_name,
+              color_name,
               id,
             }) => {
               return (
@@ -108,6 +109,7 @@ const HomeScreen = ({navigation}) => {
                     navigation.navigate('DetailProduct', {
                       itemId: id,
                       categories: category_name,
+                      color: color_name,
                     })
                   }
                   style={{paddingHorizontal: 10}}
@@ -164,6 +166,7 @@ const HomeScreen = ({navigation}) => {
               product_photo,
               category_name,
               rating,
+              color_name,
               id,
             }) => {
               return (
@@ -172,6 +175,7 @@ const HomeScreen = ({navigation}) => {
                     navigation.navigate('DetailProduct', {
                       itemId: id,
                       categories: category_name,
+                      color: color_name,
                     })
                   }
                   style={{paddingHorizontal: 10, marginBottom: 20}}

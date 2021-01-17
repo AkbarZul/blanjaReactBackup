@@ -9,12 +9,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {colors} from '../../../utils';
 import {connect} from 'react-redux';
-import {deleteBag} from '../../../utils/redux/action/cartAction';
+import {deleteBag, increaseQuantity, decreaseQuantity} from '../../../utils/redux/action/cartAction';
 
-
-const BagScreen = ({navigation, cart, deleteBag}) => {
+const BagScreen = ({
+  navigation,
+  cart,
+  deleteBag,
+  increaseQuantity,
+  decreaseQuantity,
+}) => {
   // const { addToBag } = route.params;
 
   // const [count, setCount] = useState(0);
@@ -34,15 +39,15 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
     let items = 0;
     let prices = 0;
 
-    cart.forEach(item => {
+    cart.forEach((item) => {
       items += item.qty;
       prices += item.qty * item.price;
     });
 
     setTotalItems(items);
-    setTotalPrice(prices)
+    setTotalPrice(prices);
   }, [cart, totalPrice, totalItems, setTotalPrice, setTotalItems]);
-  
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -70,7 +75,7 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
                     <View>
                       <Text>{item.name}</Text>
                       <View style={{flexDirection: 'row', marginTop: 7}}>
-                        <Text>Color: grey</Text>
+                        <Text>Color: {item.color}</Text>
                         <Text style={{marginLeft: 5}}>Sizes: {item.size}</Text>
                       </View>
                     </View>
@@ -83,13 +88,15 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
                 {/* <View style={{alignItems: 'flex-end'}}>
               <Text>Titik tiga</Text>
             </View> */}
-                <View style={{flexDirection: 'row'}}>
+                {/* <View style={{flexDirection: 'row'}}>
                   <TouchableOpacity>
                     <View style={styles.circle}>
                       <Icon name="minus" color="black" />
                     </View>
                   </TouchableOpacity>
-                  <Text style={{marginTop: 27, marginRight: 9}}>{item.qty}</Text>
+                  <Text style={{marginTop: 27, marginRight: 9}}>
+                    {item.qty}
+                  </Text>
                   <TouchableOpacity>
                     <View style={styles.circle}>
                       <Icon name="plus" color="black" />
@@ -99,6 +106,45 @@ const BagScreen = ({navigation, cart, deleteBag}) => {
                     <Text style={{marginTop: 30, marginLeft: 40}}>
                       Rp. {item.price}
                     </Text>
+                  </View>
+                </View> */}
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 20,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {item.qty === 1 ? (
+                      <TouchableOpacity style={styles.pickSize}>
+                        <Icon name="minus" size={20} color={colors.black} />
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        style={styles.pickSize}
+                        onPress={() => decreaseQuantity(item.id)}>
+                        <Icon name="minus" size={20} color={colors.black} />
+                      </TouchableOpacity>
+                    )}
+                    <Text size="l" style={{marginHorizontal: 4}}>
+                      {item.qty}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.pickSize}
+                      onPress={() => increaseQuantity(item.id)}>
+                      <Icon name="plus" size={20} color={colors.black} />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{marginTop: 30, marginLeft: 55, paddingBottom: 30}}>
+                    <Text>Rp.{item.price * item.qty}</Text>
                   </View>
                 </View>
               </View>
@@ -195,6 +241,18 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
     width: '100%',
   },
+  pickSize: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 2,
+    borderRadius: 75,
+    // overflow: 'hidden',
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'black',
+  },
 });
 // export default BagScreen;
 const mapStateToProps = (state) => {
@@ -206,6 +264,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteBag: (id) => dispatch(deleteBag(id)),
+    increaseQuantity: (id) => dispatch(increaseQuantity(id)),
+    decreaseQuantity: (id) => dispatch(decreaseQuantity(id)),
   };
 };
 
