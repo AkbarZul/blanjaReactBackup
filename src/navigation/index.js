@@ -17,6 +17,7 @@ import {
   SettingsScreen,
   ShippingAddressScreen,
   AddingShippingAddressScreen,
+  UpdateShippingAddress,
   DetailProductScreen,
   NotificationScreen,
   LoginScreen,
@@ -77,6 +78,8 @@ const MainScreenView = () => (
         } else if (route.name === 'Favorites') {
           iconName = focused ? 'heart' : 'heart-outline';
         } else if (route.name === 'Profile') {
+          iconName = focused ? 'account-circle' : 'account-circle-outline';
+        } else if (route.name === 'Login') {
           iconName = focused ? 'account-circle' : 'account-circle-outline';
         }
         // You can return any component that you like here!
@@ -183,6 +186,10 @@ const AuthStackScreen = () => (
     <AuthStack.Screen
       name="Adding Shipping Address"
       component={AddingShippingAddressScreen}
+    />
+      <AuthStack.Screen
+      name="Update Shipping Address"
+      component={UpdateShippingAddress}
     />
     <AuthStack.Screen
       name="Success"

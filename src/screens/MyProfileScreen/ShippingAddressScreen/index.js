@@ -6,6 +6,8 @@ import {
   TextInput,
   TouchableHighlight,
   ScrollView,
+  TouchableOpacity,
+  Touchable,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/EvilIcons';
@@ -43,7 +45,7 @@ const ShippingAddress = ({navigation}) => {
     await axios
       .get(BASE_URL + '/address', {
         headers: {
-          'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token'),
+          'x-access-token': 'Bearer ' + (await AsyncStorage.getItem('token')),
         },
       })
       .then((res) => {
@@ -58,7 +60,7 @@ const ShippingAddress = ({navigation}) => {
 
   useEffect(() => {
     getAddressUser();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -73,50 +75,70 @@ const ShippingAddress = ({navigation}) => {
           {/* <Text children="Shipping address" size={30} style={styles.title} /> */}
           {address.map(
             ({
-              id,
+              id_address,
               fullname,
               address,
               city,
+              region,
               zip_code,
               country,
             }) => {
               return (
-          <View style={styles.card} key={id}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text children={fullname} size={20} style={{fontWeight: 'bold'}} />
-              <Text children="Change" color="red" size="l" />
-            </View>
-            <Text
-              children={address}
-              size={17}
-              type="Medium"
-              style={styles.address}
-            />
-            <View style={{flexDirection: 'row', marginBottom: 5,}}>
-              <Text
-              children={`${city},`}
-              size={17}
-              type="Medium"
-              style={styles.address}
-            />
-                <Text
-              children={`${zip_code},`}
-              size={17}
-              type="Medium"
-              style={styles.address}
-            />
-              <Text
-              children={`${country}`}
-              size={17}
-              type="Medium"
-              style={styles.address}
-            />
-            </View>
-          
-          </View>
-              )
-            }
+                <View style={styles.card}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text
+                      children={fullname}
+                      size={20}
+                      style={{fontWeight: 'bold'}}
+                    />
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('Update Shipping Address', {
+                          id: id_address,
+                          Fullname: fullname,
+                          Address: address,
+                          City: city,
+                          Region: region,
+                          Zipcode: zip_code,
+                          Country: country,
+                        });
+                      }}>
+                      <Text children="Change" color="red" size="l" />
+                    </TouchableOpacity>
+                  </View>
+                  <Text
+                    children={address}
+                    size={17}
+                    type="Medium"
+                    style={styles.address}
+                  />
+                  <View style={{flexDirection: 'row', marginBottom: 5}}>
+                    <Text
+                      children={`${city},`}
+                      size={17}
+                      type="Medium"
+                      style={styles.address}
+                    />
+                    <Text
+                      children={`${zip_code},`}
+                      size={17}
+                      type="Medium"
+                      style={styles.address}
+                    />
+                    <Text
+                      children={`${country}`}
+                      size={17}
+                      type="Medium"
+                      style={styles.address}
+                    />
+                  </View>
+                </View>
+              );
+            },
           )}
 
           {/* <View style={styles.card}>

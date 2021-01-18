@@ -16,6 +16,7 @@ import OrderDetailsScreen from './MyProfileScreen/OrderDetailsScreen';
 import SettingsScreen from './MyProfileScreen/SettingsScreen';
 import ShippingAddressScreen from './MyProfileScreen/ShippingAddressScreen';
 import AddingShippingAddressScreen from './MyProfileScreen/AddingShippingAddress';
+import UpdateShippingAddress from './MyProfileScreen/UpdateShippingAddress';
 
 import DetailProductScreen from './DetailProductScreen';
 import NotificationScreen from './NotificationScreen';
@@ -48,6 +49,7 @@ export {
   SearchScreen,
   ShippingAddressScreen,
   AddingShippingAddressScreen,
+  UpdateShippingAddress,
   ListScreen,
   CheckOutScreen,
   CatalogeScreen,
