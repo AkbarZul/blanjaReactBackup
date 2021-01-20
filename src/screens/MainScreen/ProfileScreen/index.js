@@ -89,6 +89,36 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
       </View>
+      <View>
+        <TouchableOpacity
+          style={styles.order}
+          onPress={() => navigation.navigate('AddProduct')}>
+          <View>
+            <Text children="Adding Product" size="xl" />
+            <Text children="Notification, password" size="m" color="gray" />
+          </View>
+
+          <View>
+            <Icon name="chevron-right" size={30} color={colors.gray} />
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <TouchableOpacity
+          style={styles.order}
+          onPress={() => navigation.navigate('ProductSeller')}>
+          <View>
+            <Text children="Adding Product" size="xl" />
+            <Text children="Notification, password" size="m" color="gray" />
+          </View>
+
+          <View>
+            <Icon name="chevron-right" size={30} color={colors.gray} />
+          </View>
+        </TouchableOpacity>
+      </View>
+      
       <Button
         style={styles.button}
         title="Go to Login"

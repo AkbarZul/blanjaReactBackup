@@ -28,6 +28,8 @@ import CatalogeScreen from './CatalogeScreen';
 import MainCatalogScreen from './MainCatalog';
 import SplashScreen from './SplashScreen';
 import SuccessScreen from './SuccessScreen';
+import AddProduct from './MyProfileScreen/AddProductSeller';
+import ProductSeller from './MyProfileScreen/ProductSeller';
 
 export {
   LoginScreen,
@@ -56,4 +58,6 @@ export {
   MainCatalogScreen,
   SplashScreen,
   SuccessScreen,
+  AddProduct,
+  ProductSeller,
 };

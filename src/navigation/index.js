@@ -33,6 +33,8 @@ import {
   MainCatalogScreen,
   SplashScreen,
   SuccessScreen,
+  AddProduct,
+  ProductSeller,
 } from '../screens';
 
 const getToken = async () => {
@@ -295,6 +297,8 @@ const ProfileStackScreen = () => (
     <ProfileStack.Screen name="MyOrders" component={MyOrdersScreen} />
     <ProfileStack.Screen name="OrderDetails" component={OrderDetailsScreen} />
     <ProfileStack.Screen name="Settings" component={SettingsScreen} />
+    <ProfileStack.Screen name="AddProduct" component={AddProduct} />
+    <ProfileStack.Screen name="ProductSeller" component={ProductSeller} />
   </ProfileStack.Navigator>
 );
 
