@@ -20,12 +20,26 @@ export default function CatalogeScreen({navigation, route}) {
   const {itemId} = route.params;
   const [products, setProducts] = useState([]);
 
+  // const getProduct = async (itemId) => {
+  //   await axios
+  //     .get(BASE_URL + `/categories/${itemId}?keyword=created_at desc`)
+  //     .then((res) => {
+  //       const products = res.data.data.product;
+  //       // console.log('good ponsel', res.data.data.product);
+  //       setProducts(products);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   const getProduct = async (itemId) => {
     await axios
-      .get(BASE_URL + `/categories/` + itemId)
+      // .get(BASE_URL + `/categories/` + itemId)
+      .get(BASE_URL + `/categories/${itemId}?keyword=created_at desc`)
       .then((res) => {
         const products = res.data.data.product;
-        // console.log('good ponsel', res.data.data.product);
+        console.log('Datss', res.data.data.product);
         setProducts(products);
       })
       .catch((err) => {
@@ -48,6 +62,7 @@ export default function CatalogeScreen({navigation, route}) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 10,
+          height: 50,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon name="filter" size={25} />
@@ -58,7 +73,7 @@ export default function CatalogeScreen({navigation, route}) {
           <Image source={require('../../assets/images/sort.png')} />
           <Text style={{marginLeft: 5}}>Prices</Text>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="apps-sharp" size={25} />
         </View>
       </View>

@@ -284,8 +284,8 @@ const AddProduct = () => {
   // };
   return (
     <ScrollView style={styles.container}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{flexDirection: 'row', paddingHorizontal: 15}}>
+      <ScrollView vertical={true}>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
           {/* {image ? renderAsset(image) : null} */}
           {/* {images
             ? images.map((i) => <View key={i.uri}>{renderAsset(i)}</View>)
@@ -295,6 +295,7 @@ const AddProduct = () => {
               <Image
                 key={filePath.indexOf(item)}
                 source={{uri: filePath.length !== 0 ? item.path : ''}}
+                style={styles.imgStyle}
               />
             );
           })}
@@ -478,6 +479,14 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingVertical: 15,
+  },
+  imgStyle: {
+    width: 100,
+    height: 100,
+    margin: 5,
+    borderColor: 'black',
+    borderRadius: 5,
+    borderWidth: 1,
   },
 });
 

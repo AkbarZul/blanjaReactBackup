@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     height: 150,
-    marginTop: 10,
+    marginTop: 30,
+    marginBottom: 20,
   },
   itemName: {
     fontSize: 16,
