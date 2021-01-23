@@ -132,7 +132,7 @@ const BagScreen = ({
                         <Text style={{marginLeft: 5}}>Sizes: {item.size}</Text>
                       </View>
                     </View>
-                    <TouchableOpacity
+                    <TouchableOpacity style={{paddingHorizontal: 15}}
                       onPress={() =>
                         Alert.alert(
                           'Delete',
@@ -216,8 +216,9 @@ const BagScreen = ({
                   <View
                     style={{
                       marginTop: 30,
-                      marginLeft: 55,
+                      // marginLeft: 55,
                       paddingBottom: 30,
+                      paddingHorizontal: 15,
                     }}>
                     <Text>Rp.{item.price * item.qty}</Text>
                   </View>

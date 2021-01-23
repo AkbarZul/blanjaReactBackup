@@ -6,6 +6,7 @@ import {Picker} from '@react-native-picker/picker';
 import FormInput from 'react-native-outline-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const AddingShippingAddress = ({navigation}) => {
 const BASE_URL = 'http://192.168.1.3:9005';
@@ -15,28 +16,29 @@ const BASE_URL = 'http://192.168.1.3:9005';
  const [region, setRegion] = useState('');
  const [zipcode, setZipcode] = useState('');
  const [country, setCountry] = useState('');
+ const token = useSelector((state) => state.authReducer.token);
 
- const getToken = async () => {
-  try {
-    // console.log('ini');
-    const token = await AsyncStorage.getItem('token');
-    const fullName = await AsyncStorage.getItem('fullName');
-    const email = await AsyncStorage.getItem('email');
-    if ((token, fullName, email !== null)) {
-      // value previously stored
-      // console.log('Token ProfilePage ', token);
-      // console.log('ProfilePage');
-      return true;
-    } else {
-      console.log('token null');
-      return false;
-    }
-  } catch (e) {
-    // error reading value
-    console.log(e);
-  }
-};
-getToken();
+//  const getToken = async () => {
+//   try {
+//     // console.log('ini');
+//     const token = await AsyncStorage.getItem('token');
+//     const fullName = await AsyncStorage.getItem('fullName');
+//     const email = await AsyncStorage.getItem('email');
+//     if ((token, fullName, email !== null)) {
+//       // value previously stored
+//       // console.log('Token ProfilePage ', token);
+//       // console.log('ProfilePage');
+//       return true;
+//     } else {
+//       console.log('token null');
+//       return false;
+//     }
+//   } catch (e) {
+//     // error reading value
+//     console.log(e);
+//   }
+// };
+// getToken();
 
 const handleSubmit = async () => {
   const data = {
@@ -50,7 +52,7 @@ const handleSubmit = async () => {
 
   axios.post(BASE_URL + '/address', data, {
     headers: {
-      'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token'),
+      'x-access-token': 'Bearer ' + token,
     },
   }).then((res) => {
     console.log('jam 3 subuh')

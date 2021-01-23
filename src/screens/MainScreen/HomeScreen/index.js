@@ -158,7 +158,7 @@ const HomeScreen = ({navigation}) => {
             },
           )}
         </ScrollView>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() =>
             showNotification('hello', 'This is Notification', channel)
           }>
@@ -166,7 +166,7 @@ const HomeScreen = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity>
           <Text children="cancel notification" onPress={handleCancel} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.wrapTitleText}>
           <View>
             <Text children="Popular" size="xl3" style={styles.titeText} />

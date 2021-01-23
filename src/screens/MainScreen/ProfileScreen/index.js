@@ -12,28 +12,32 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Icon } from 'react-native-vector-icons/Icon';
 import {Text} from '../../../components';
 import {colors} from '../../../utils';
+import {useSelector} from 'react-redux';
 
-const getToken = async () => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const fullName = await AsyncStorage.getItem('fullName');
-    const email = await AsyncStorage.getItem('email');
-    if (token, fullName, email !== null) {
-      console.log("token screen ", token);
-      console.log('profile');
-      return true;
-    } else {
-      console.log('token null');
-      return false;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
-getToken();
-console.log('test');
+// const getToken = async () => {
+//   try {
+//     const token = await AsyncStorage.getItem('token');
+//     const fullName = await AsyncStorage.getItem('fullName');
+//     const email = await AsyncStorage.getItem('email');
+//     if (token, fullName, email !== null) {
+//       console.log("token screen ", token);
+//       console.log('profile');
+//       return true;
+//     } else {
+//       console.log('token null');
+//       return false;
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
+// getToken();
+// console.log('test');
 
 const ProfileScreen = ({navigation}) => {
+  const level = useSelector((state) => state.authReducer.level);
+  const token = useSelector((state) => state.authReducer.token);
+  console.log("LEVEL ", level);
   return (
     <ScrollView style={styles.container}>
       <Text children="My Profile" size="xl3" style={styles.myprofile} />
@@ -109,7 +113,7 @@ const ProfileScreen = ({navigation}) => {
           style={styles.order}
           onPress={() => navigation.navigate('ProductSeller')}>
           <View>
-            <Text children="Adding Product" size="xl" />
+            <Text children="My Product" size="xl" />
             <Text children="Notification, password" size="m" color="gray" />
           </View>
 

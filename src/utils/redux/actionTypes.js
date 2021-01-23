@@ -7,3 +7,7 @@ export const QUANTITY_INCREASED = 'QUANTITY_INCREASED';
 export const QUANTITY_DECREASED = 'QUANTITY_DECREASED';
 
 export const ADD_TO_CHECKOUT = 'addToCheckout';
+
+//Auth
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';

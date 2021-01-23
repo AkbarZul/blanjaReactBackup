@@ -10,32 +10,13 @@ import {
   OutlineFormInput,
 } from '../../../components/index';
 import AwesomeAlert from 'react-native-awesome-alerts';
-
 import OutlineInput from 'react-native-outline-input';
 
-const storeData = async (value) => {
-  try {
-    await AsyncStorage.setItem('token', value);
-  } catch (e) {
-    
-  }
-}
+// redux
+import {connect} from 'react-redux';
+import {login} from '../../../utils/redux/action/authAction';
 
-const getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('token');
-    const userId = await AsyncStorage.getItem('userId');
-    if (value !== null) {
-      // value previously stored
-      console.log(value);
-      console.log(userId);
-    }
-  } catch (e) {
-    // error reading value
-  }
-};
-
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, login}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -47,51 +28,22 @@ const LoginScreen = ({navigation}) => {
     axios
       .post('http://192.168.1.3:9005/auth/login', data)
       .then(async (res) => {
-        console.log(res.data.data.token);
-        console.log(res.data.data.userId);
+        console.log('Token ', res.data.data.token);
+        console.log('ID ', res.data.data.user_id);
+        console.log('FullName ', res.data.data.full_name);
+        console.log('Email ', res.data.data.email);
+        console.log('Level ', res.data.data.level);
         const token = res.data.data.token;
-        const fullName = res.data.data.full_name;
-        const email = res.data.data.email;
-        const id = res.data.data.user_id;
-        const userid = id.toString();
-        console.log(typeof userid);
+        const user_id = res.data.data.user_id;
+        const level = res.data.data.level;
+        login(token, user_id, level);
 
-        await AsyncStorage.setItem('token', token);
-        await AsyncStorage.setItem('userid', userid);
-        await AsyncStorage.setItem('fullName', fullName);
-        await AsyncStorage.setItem('email', email);
         console.log('done');
-        await getData();
-        navigation.navigate('Home');
-        console.log('done2');
+        navigation.navigate('Main');
       })
       .catch((err) => {
         console.log(err);
-        // console.log('erro disini');
       });
-  };
-
-  const showAlert = () => {
-    return (
-      <AwesomeAlert
-        show={true}
-        title={message.title}
-        message={message.value}
-        showProgress={message.status}
-        closeOnTouchOutside={false}
-        closeOnHardwareBackPress={true}
-        showCancelButton={false}
-        showConfirmButton={!message.status}
-        confirmText="Mengerti !"
-        confirmButtonColor={colors.baseLightColor}
-        // onCancelPressed={() => {
-        //   this.hideAlert();
-        // }}
-        onConfirmPressed={() => {
-          setAlert(false);
-        }}
-      />
-    );
   };
 
   return (
@@ -148,7 +100,6 @@ const LoginScreen = ({navigation}) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#E5E5E5',
@@ -176,10 +127,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
   },
-  
+
   pass: {
     marginBottom: 15,
   },
 });
 
-export default LoginScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (token, user_id, level) => dispatch(login(token, user_id, level)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LoginScreen);

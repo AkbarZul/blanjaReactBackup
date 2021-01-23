@@ -253,7 +253,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
 // import {clearCart, clearCheckout} from '../../../utils/redux/action/cartAction';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import PushNotification from 'react-native-push-notification';
 import {
   showNotification,
@@ -264,27 +264,6 @@ import {
 // import {useSelector} from 'react-redux';
 
 const CheckOut = ({checkout, navigation}) => {
-  const getToken = async () => {
-    try {
-      // console.log('ini');
-      const token = await AsyncStorage.getItem('token');
-      const fullName = await AsyncStorage.getItem('fullName');
-      const email = await AsyncStorage.getItem('email');
-      if ((token, fullName, email !== null)) {
-        // value previously stored
-        // console.log('Token ProfilePage ', token);
-        // console.log('ProfilePage');
-        return true;
-      } else {
-        console.log('token null');
-        return false;
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
-  getToken();
   const channel = 'notif';
   const [address, setAddress] = useState({});
   const [checkbox, setCheckbox] = useState(false);
@@ -296,7 +275,7 @@ const CheckOut = ({checkout, navigation}) => {
     await axios
       .get(`${BASE_URL}/address`, {
         headers: {
-          'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token'),
+          'x-access-token': 'Bearer ' + token,
         },
       })
       .then((res) => {
@@ -330,12 +309,12 @@ const CheckOut = ({checkout, navigation}) => {
     handleSubmit();
   }, []);
 
-  // const token = useSelector((state) => state.authReducer.token);
+  const token = useSelector((state) => state.authReducer.token);
   const transaction = async () => {
     await axios
       .post(`${BASE_URL}/orders`, checkout, {
         headers: {
-          'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token')
+          'x-access-token': 'Bearer ' + token,
         },
       })
       .then((res) => {

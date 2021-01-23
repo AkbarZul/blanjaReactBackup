@@ -19,6 +19,7 @@ import FormInput from 'react-native-outline-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Picker} from '@react-native-picker/picker';
+import {useSelector} from 'react-redux';
 // import ImagePicker from 'react-native-image-picker';
 // import ImagePicker from 'react-native-image-crop-picker';
 // import { Picker } from 'react-native-picker/picker';
@@ -50,27 +51,29 @@ const AddProduct = () => {
   const [cnd, setCnd] = useState(0);
   const [sts, setSts] = useState(0);
 
-  const getToken = async () => {
-    try {
-      // console.log('ini');
-      const token = await AsyncStorage.getItem('token');
-      const fullName = await AsyncStorage.getItem('fullName');
-      const email = await AsyncStorage.getItem('email');
-      if ((token, fullName, email !== null)) {
-        // value previously stored
-        // console.log('Token ProfilePage ', token);
-        // console.log('ProfilePage');
-        return true;
-      } else {
-        console.log('token null');
-        return false;
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
-  getToken();
+  const token = useSelector((state) => state.authReducer.token);
+
+  // const getToken = async () => {
+  //   try {
+  //     // console.log('ini');
+  //     const token = await AsyncStorage.getItem('token');
+  //     const fullName = await AsyncStorage.getItem('fullName');
+  //     const email = await AsyncStorage.getItem('email');
+  //     if ((token, fullName, email !== null)) {
+  //       // value previously stored
+  //       // console.log('Token ProfilePage ', token);
+  //       // console.log('ProfilePage');
+  //       return true;
+  //     } else {
+  //       console.log('token null');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     // error reading value
+  //     console.log(e);
+  //   }
+  // };
+  // getToken();
 
   const getCategory = async () => {
     await axios
@@ -163,7 +166,7 @@ const AddProduct = () => {
     axios
       .post(BASE_URL + '/products', data, {
         headers: {
-          'x-access-token': 'Bearer ' + (await AsyncStorage.getItem('token')),
+          'x-access-token': 'Bearer ' + token,
           'Content-type': 'multipart/form-data',
         },
       })

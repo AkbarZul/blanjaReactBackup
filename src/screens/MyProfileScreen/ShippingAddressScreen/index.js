@@ -12,40 +12,44 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Text from '../../../components/Text';
+import {useSelector} from 'react-redux';
+
+
 
 const ShippingAddress = ({navigation}) => {
   const BASE_URL = 'http://192.168.1.3:9005';
   const [address, setAddress] = useState([]);
+  const token = useSelector((state) => state.authReducer.token);
 
-  const getToken = async () => {
-    try {
-      console.log('ini');
-      const token = await AsyncStorage.getItem('token');
-      const fullName = await AsyncStorage.getItem('fullName');
-      const email = await AsyncStorage.getItem('email');
-      if ((token, fullName, email !== null)) {
-        // value previously stored
-        console.log('Token ProfilePage ', token);
-        console.log('ProfilePage');
-        return true;
-      } else {
-        console.log('token null');
-        return false;
-      }
-    } catch (e) {
-      // error reading value
-      console.log(e);
-    }
-  };
-  getToken();
-  console.log(`ini tester`);
+  // const getToken = async () => {
+  //   try {
+  //     console.log('ini');
+  //     const token = await AsyncStorage.getItem('token');
+  //     const fullName = await AsyncStorage.getItem('fullName');
+  //     const email = await AsyncStorage.getItem('email');
+  //     if ((token, fullName, email !== null)) {
+  //       // value previously stored
+  //       console.log('Token ProfilePage ', token);
+  //       console.log('ProfilePage');
+  //       return true;
+  //     } else {
+  //       console.log('token null');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     // error reading value
+  //     console.log(e);
+  //   }
+  // };
+  // getToken();
+  // console.log(`ini tester`);
 
   const getAddressUser = async () => {
     // const token =  AsyncStorage.getItem('token');
     await axios
       .get(BASE_URL + '/address', {
         headers: {
-          'x-access-token': 'Bearer ' + (await AsyncStorage.getItem('token')),
+          'x-access-token': 'Bearer ' + token,
         },
       })
       .then((res) => {
