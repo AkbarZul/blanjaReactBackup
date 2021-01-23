@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const UpdateShippingAddress = ({navigation, route}) => {
-    const BASE_URL = 'http://192.168.1.4:9005';
+    const BASE_URL = 'http://192.168.1.3:9005';
     const {
         id,
         Fullname,
@@ -57,7 +57,7 @@ const UpdateShippingAddress = ({navigation, route}) => {
               zip_code: zipcode,
               country: country,
           };
-          axios.patch('http://192.168.1.4:9005/address/' + data.id_address, data, {
+          axios.patch('http://192.168.1.3:9005/address/' + data.id_address, data, {
             headers: {
                 'x-access-token': 'Bearer ' + await AsyncStorage.getItem('token')
               }

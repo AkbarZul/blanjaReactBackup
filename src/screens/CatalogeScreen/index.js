@@ -12,12 +12,19 @@ import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const BASE_URL = 'http://192.168.1.4:9005';
+const BASE_URL = 'http://192.168.1.3:9005';
 const actionSheetRef = createRef();
 
 export default function CatalogeScreen({navigation, route}) {
   let actionSheet;
-  const {itemId} = route.params;
+  const {
+    itemId,
+    itemIdPopular,
+    itemIdNewest,
+    itemIdPriceLowToHigh,
+    itemIdPriceHighToLow,
+    categories,
+  } = route.params;
   const [products, setProducts] = useState([]);
 
   // const getProduct = async (itemId) => {
@@ -47,12 +54,74 @@ export default function CatalogeScreen({navigation, route}) {
       });
   };
 
+  const sortByPopular = async (itemIdPopular) => {
+    await axios
+      .get(BASE_URL + `/categories/${itemIdPopular}?keyword=rating DESC`)
+      .then((res) => {
+        const popularData = res.data.data.product;
+        console.log('ANJIM ', popularData);
+        setProducts(popularData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const sortByNewest = async (itemIdNewest) => {
+    await axios
+      .get(BASE_URL + `/categories/${itemIdNewest}?keyword=created_at`)
+      .then((res) => {
+        const newestData = res.data.data.product;
+        setProducts(newestData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const sortByPriceLowToHigh = async (itemIdPriceLowToHigh) => {
+    await axios
+      .get(
+        BASE_URL +
+          `/categories/${itemIdPriceLowToHigh}?keyword=product_price ASC`,
+      )
+      .then((res) => {
+        const priceLowToHighData = res.data.data.product;
+        setProducts(priceLowToHighData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const sortByPriceHighToLow = async (itemIdPriceHighToLow) => {
+    await axios
+      .get(
+        BASE_URL +
+          `/categories/${itemIdPriceHighToLow}?keyword=product_price DESC`,
+      )
+      .then((res) => {
+        const priceHighToLowData = res.data.data.product;
+        console.log('price hi lo', priceHighToLowData);
+        setProducts(priceHighToLowData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     // code to run on component mount
     // console.log('tiktok', itemId);
     getProduct(itemId);
     // getDataCard();
-  }, []);
+  }, [
+    itemId,
+    itemIdPopular,
+    itemIdNewest,
+    itemIdPriceLowToHigh,
+    itemIdPriceHighToLow,
+  ]);
 
   return (
     <>
@@ -68,11 +137,15 @@ export default function CatalogeScreen({navigation, route}) {
           <Icon name="filter" size={25} />
           <Text>Filters</Text>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: -35}}>
+        <TouchableOpacity
+          style={{flexDirection: 'row', alignItems: 'center', marginLeft: -35}}
+          onPress={() => {
+            actionSheetRef.current?.setModalVisible();
+          }}>
           {/* <Icon name="filter" size={25} /> */}
           <Image source={require('../../assets/images/sort.png')} />
           <Text style={{marginLeft: 5}}>Prices</Text>
-        </View>
+        </TouchableOpacity>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Icon name="apps-sharp" size={25} />
         </View>
@@ -103,16 +176,46 @@ export default function CatalogeScreen({navigation, route}) {
           </TouchableOpacity>
         )}
       />
-      <Button
+      {/* <Button
         style={styles.button}
         title="Go to BottomSheet"
         onPress={() => {
           actionSheetRef.current?.setModalVisible();
         }}
-      />
+      /> */}
 
       <ActionSheet gestureEnabled ref={actionSheetRef}>
-        <View>
+        <View style={{justifyContent: 'center'}}>
+          <View style={{justifyContent: 'center'}}>
+          <Text
+              style={{alignSelf: 'center', fontSize: 18, fontWeight: 'bold'}}>
+              Sort By
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.sorting}
+            onPress={() => {
+              sortByPopular(itemId);
+            }}>
+            <Text style={styles.textSorting}>Popular</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sorting} onPress={() => {
+              sortByNewest(itemId)}}>
+            <Text style={styles.textSorting}>Newest</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sorting}>
+            <Text style={styles.textSorting}>Customer review</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sorting} onPress={() => {
+            sortByPriceLowToHigh(itemId)}}>
+            <Text style={styles.textSorting}>Price: lowest to high</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sorting} onPress={() => {
+            sortByPriceHighToLow(itemId)}}>
+            <Text style={styles.textSorting}>Price: highest to low</Text>
+          </TouchableOpacity>
+
+          {/* <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
@@ -120,8 +223,7 @@ export default function CatalogeScreen({navigation, route}) {
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
           <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
-          <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
-          <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text>
+          <Text>YOUR CUSTOM COMPONENT INSIDE THE ACTIONSHEET</Text> */}
         </View>
       </ActionSheet>
     </>
@@ -149,5 +251,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#000000',
+  },
+  sorting: {
+    marginHorizontal: 15,
+    marginVertical: 10,
+    padding: 10,
+  },
+  textSorting: {
+    fontSize: 18,
   },
 });

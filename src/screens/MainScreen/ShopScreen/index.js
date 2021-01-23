@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 const ShopScreen = ({navigation}) => {
-  const BASE_URL = 'http://192.168.1.4:9005';
+  const BASE_URL = 'http://192.168.1.3:9005';
   const [category, setCategory] = useState([]);
 
   useEffect(() => {

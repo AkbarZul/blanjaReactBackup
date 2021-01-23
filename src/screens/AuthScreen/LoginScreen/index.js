@@ -45,7 +45,7 @@ const LoginScreen = ({navigation}) => {
       password: password,
     };
     axios
-      .post('http://192.168.1.4:9005/auth/login', data)
+      .post('http://192.168.1.3:9005/auth/login', data)
       .then(async (res) => {
         console.log(res.data.data.token);
         console.log(res.data.data.userId);

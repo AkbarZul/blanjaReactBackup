@@ -23,6 +23,13 @@ export const addToBag = (
   };
 };
 
+export const addToCheckout = (data) => {
+  return {
+    type: actionTypes.ADD_TO_CHECKOUT,
+    payload: data.kirim,
+  }
+}
+
 export const deleteBag = (itemId) => {
   return {
     type: actionTypes.REMOVE_FROM_BAG,

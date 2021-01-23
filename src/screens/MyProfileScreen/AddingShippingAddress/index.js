@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const AddingShippingAddress = ({navigation}) => {
-const BASE_URL = 'http://192.168.1.4:9005';
+const BASE_URL = 'http://192.168.1.3:9005';
  const [fullname, setFullname] = useState('');
  const [address, setAddress] = useState('');
  const [city, setCity] = useState('');

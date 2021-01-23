@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import Text from '../../../components/Text';
 
 const ShippingAddress = ({navigation}) => {
-  const BASE_URL = 'http://192.168.1.4:9005';
+  const BASE_URL = 'http://192.168.1.3:9005';
   const [address, setAddress] = useState([]);
 
   const getToken = async () => {

@@ -2,6 +2,10 @@ import * as actionTypes from '../actionTypes';
 
 const INITIAL_STATE = {
   cart: [],
+  checkout: {
+    transaction_code: '',
+    item: [],
+  },
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -63,6 +67,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             return {
               ...state,
               cart: newCart,
+            }
+          }
+
+          case actionTypes.ADD_TO_CHECKOUT: 
+          return {
+            ...state,
+            checkout: {
+              ...state.checkout,
+              transaction_code: action.payload.transaction_code,
+              item: action.payload.item,
             }
           }
     default:

@@ -14,7 +14,7 @@ import {colors} from '../../utils';
 import {connect} from 'react-redux';
 import {addToBag} from '../../utils/redux/action/cartAction';
 
-const BASE_URL = 'http://192.168.1.4:9005';
+const BASE_URL = 'http://192.168.1.3:9005';
 
 const DetailProductScreen = ({navigation, route, addToBag}) => {
   const {itemId, item, categories} = route.params;

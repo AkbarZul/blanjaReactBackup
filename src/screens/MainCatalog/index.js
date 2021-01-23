@@ -11,7 +11,7 @@ import {FlatGrid} from 'react-native-super-grid';
 import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
 
-const BASE_URL = 'http://192.168.1.4:9005';
+const BASE_URL = 'http://192.168.1.3:9005';
 const actionSheetRef = createRef();
 
 const MainCatalogScreen = ({navigation}) => {

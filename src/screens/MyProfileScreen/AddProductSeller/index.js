@@ -31,7 +31,7 @@ const AddProduct = () => {
     getCondition();
     getStatus();
   }, []);
-  const BASE_URL = 'http://192.168.1.4:9005';
+  const BASE_URL = 'http://192.168.1.3:9005';
   const [image, setImage] = useState(null);
   // const [images, setImages] = useState(null);
   const [filePath, setFilePath] = useState([]);

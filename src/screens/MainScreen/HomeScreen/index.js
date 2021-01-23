@@ -24,7 +24,7 @@ import {colors} from '../../../utils';
 
 const HomeScreen = ({navigation}) => {
   const channel = 'notif';
-  const BASE_URL = 'http://192.168.1.4:9005';
+  const BASE_URL = 'http://192.168.1.3:9005';
   const [card, setCard] = useState([]);
   const [cardTwo, setCardTwo] = useState([]);
 

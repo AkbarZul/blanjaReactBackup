@@ -13,7 +13,7 @@ import ActionSheet from 'react-native-actions-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const BASE_URL = 'http://192.168.1.4:9005';
+const BASE_URL = 'http://192.168.1.3:9005';
 
 const ProductSeller = ({navigation, route}) => {
 //   const {itemId} = route.params;
