@@ -9,9 +9,10 @@ import {
   Button,
   Image,
 } from 'react-native';
+import {API_URL} from '@env';
 
 const ShopScreen = ({navigation}) => {
-  const BASE_URL = 'http://192.168.1.3:9005';
+  // const BASE_URL = 'http://192.168.1.3:9005';
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const ShopScreen = ({navigation}) => {
 
   const getDataCategory = () => {
     axios
-      .get(BASE_URL + '/categories')
+      .get(API_URL + '/categories')
       .then((res) => {
         const category = res.data.data;
         console.log('Category', category);

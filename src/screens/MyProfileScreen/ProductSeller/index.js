@@ -12,10 +12,11 @@ import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {API_URL} from '@env';
 
 import {useSelector} from 'react-redux';
 
-const BASE_URL = 'http://192.168.1.3:9005';
+// const BASE_URL = 'http://192.168.1.3:9005';
 
 const ProductSeller = ({navigation, route}) => {
 //   const {itemId} = route.params;
@@ -47,7 +48,7 @@ const ProductSeller = ({navigation, route}) => {
 
   const getProductsSeller = async () => {
     await axios
-      .get(BASE_URL + '/products/user', {
+      .get(API_URL + '/products/user', {
         headers: {
           'x-access-token': 'Bearer ' + token,
         },

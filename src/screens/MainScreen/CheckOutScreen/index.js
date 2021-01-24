@@ -261,6 +261,7 @@ import {
   handleCancel,
   handleScheduledNotification,
 } from '../../../notif';
+import {API_URL} from '@env';
 
 // import {useSelector} from 'react-redux';
 
@@ -270,11 +271,11 @@ const CheckOut = ({checkout, navigation}) => {
   const [checkbox, setCheckbox] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
 
-  const BASE_URL = 'http://192.168.1.3:9005';
+  // const BASE_URL = 'http://192.168.1.3:9005';
 
   const getAddressUser = async () => {
     await axios
-      .get(`${BASE_URL}/address`, {
+      .get(`${API_URL}/address`, {
         headers: {
           'x-access-token': 'Bearer ' + token,
         },
@@ -313,7 +314,7 @@ const CheckOut = ({checkout, navigation}) => {
   const token = useSelector((state) => state.authReducer.token);
   const transaction = async () => {
     await axios
-      .post(`${BASE_URL}/orders`, checkout, {
+      .post(`${API_URL}/orders`, checkout, {
         headers: {
           'x-access-token': 'Bearer ' + token,
         },

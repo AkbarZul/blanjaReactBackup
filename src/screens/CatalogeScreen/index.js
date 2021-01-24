@@ -11,8 +11,9 @@ import {FlatGrid} from 'react-native-super-grid';
 import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {API_URL} from '@env';
 
-const BASE_URL = 'http://192.168.1.3:9005';
+// const BASE_URL = 'http://192.168.1.3:9005';
 const actionSheetRef = createRef();
 
 export default function CatalogeScreen({navigation, route}) {
@@ -43,7 +44,7 @@ export default function CatalogeScreen({navigation, route}) {
   const getProduct = async (itemId) => {
     await axios
       // .get(BASE_URL + `/categories/` + itemId)
-      .get(BASE_URL + `/categories/${itemId}?keyword=created_at desc`)
+      .get(API_URL + `/categories/${itemId}?keyword=created_at desc`)
       .then((res) => {
         const products = res.data.data.product;
         console.log('Datss', res.data.data.product);
@@ -56,7 +57,7 @@ export default function CatalogeScreen({navigation, route}) {
 
   const sortByPopular = async (itemIdPopular) => {
     await axios
-      .get(BASE_URL + `/categories/${itemIdPopular}?keyword=rating DESC`)
+      .get(API_URL + `/categories/${itemIdPopular}?keyword=rating DESC`)
       .then((res) => {
         const popularData = res.data.data.product;
         console.log('ANJIM ', popularData);
@@ -69,7 +70,7 @@ export default function CatalogeScreen({navigation, route}) {
 
   const sortByNewest = async (itemIdNewest) => {
     await axios
-      .get(BASE_URL + `/categories/${itemIdNewest}?keyword=created_at`)
+      .get(API_URL + `/categories/${itemIdNewest}?keyword=created_at`)
       .then((res) => {
         const newestData = res.data.data.product;
         setProducts(newestData);
@@ -82,7 +83,7 @@ export default function CatalogeScreen({navigation, route}) {
   const sortByPriceLowToHigh = async (itemIdPriceLowToHigh) => {
     await axios
       .get(
-        BASE_URL +
+        API_URL +
           `/categories/${itemIdPriceLowToHigh}?keyword=product_price ASC`,
       )
       .then((res) => {
@@ -97,7 +98,7 @@ export default function CatalogeScreen({navigation, route}) {
   const sortByPriceHighToLow = async (itemIdPriceHighToLow) => {
     await axios
       .get(
-        BASE_URL +
+        API_URL +
           `/categories/${itemIdPriceHighToLow}?keyword=product_price DESC`,
       )
       .then((res) => {

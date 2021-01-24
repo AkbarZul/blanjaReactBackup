@@ -13,8 +13,9 @@ import {colors} from '../../utils';
 
 import {connect} from 'react-redux';
 import {addToBag} from '../../utils/redux/action/cartAction';
+import {API_URL} from '@env';
 
-const BASE_URL = 'http://192.168.1.3:9005';
+// const BASE_URL = 'http://192.168.1.3:9005';
 
 const DetailProductScreen = ({navigation, route, addToBag}) => {
   const {itemId, item, categories} = route.params;
@@ -26,7 +27,7 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
 
   const getProduct = async (itemId) => {
     await axios
-      .get(BASE_URL + `/products/` + itemId)
+      .get(API_URL + `/products/` + itemId)
       .then((res) => {
         const product = res.data.data;
         console.log('Detail ', res.data.data);
@@ -55,7 +56,7 @@ const DetailProductScreen = ({navigation, route, addToBag}) => {
 
   const getDataPopular = () => {
     axios
-      .get(BASE_URL + '/products?keyword=rating DESC')
+      .get(API_URL + '/products?keyword=rating DESC')
       .then((res) => {
         const cardTwo = res.data.data.products;
         // console.log('DataPopular', cardTwo);

@@ -7,9 +7,10 @@ import FormInput from 'react-native-outline-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
+import {API_URL} from '@env';
 
 const AddingShippingAddress = ({navigation}) => {
-const BASE_URL = 'http://192.168.1.3:9005';
+// const BASE_URL = 'http://192.168.1.3:9005';
  const [fullname, setFullname] = useState('');
  const [address, setAddress] = useState('');
  const [city, setCity] = useState('');
@@ -50,7 +51,7 @@ const handleSubmit = async () => {
     country: country,
   };
 
-  axios.post(BASE_URL + '/address', data, {
+  axios.post(API_URL + '/address', data, {
     headers: {
       'x-access-token': 'Bearer ' + token,
     },

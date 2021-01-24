@@ -10,8 +10,9 @@ import {
 import {FlatGrid} from 'react-native-super-grid';
 import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
+import {API_URL} from '@env';
 
-const BASE_URL = 'http://192.168.1.3:9005';
+// const BASE_URL = 'http://192.168.1.3:9005';
 const actionSheetRef = createRef();
 
 const MainCatalogScreen = ({navigation}) => {
@@ -19,7 +20,7 @@ const MainCatalogScreen = ({navigation}) => {
 
   const getProduct = async () => {
     await axios
-      .get(BASE_URL + `/products?keyword=created_at DESC&limit=100`)
+      .get(API_URL + `/products?keyword=created_at DESC&limit=100`)
       .then((res) => {
         const products = res.data.data.products;
         // console.log('Data CatalogMain  ', res.data.data.products);

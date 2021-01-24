@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Picker} from '@react-native-picker/picker';
 import {useSelector} from 'react-redux';
+import {API_URL} from '@env';
 // import ImagePicker from 'react-native-image-picker';
 // import ImagePicker from 'react-native-image-crop-picker';
 // import { Picker } from 'react-native-picker/picker';
@@ -32,7 +33,7 @@ const AddProduct = () => {
     getCondition();
     getStatus();
   }, []);
-  const BASE_URL = 'http://192.168.1.3:9005';
+  // const BASE_URL = 'http://192.168.1.3:9005';
   const [image, setImage] = useState(null);
   // const [images, setImages] = useState(null);
   const [filePath, setFilePath] = useState([]);
@@ -77,7 +78,7 @@ const AddProduct = () => {
 
   const getCategory = async () => {
     await axios
-      .get(BASE_URL + '/categories')
+      .get(API_URL + '/categories')
       .then((res) => {
         const categories = res.data.data;
         console.log('tai', categories);
@@ -90,7 +91,7 @@ const AddProduct = () => {
 
   const getSize = async () => {
     await axios
-      .get(BASE_URL + '/sizes')
+      .get(API_URL + '/sizes')
       .then((res) => {
         const size = res.data.data;
         console.log('size', size);
@@ -103,7 +104,7 @@ const AddProduct = () => {
 
   const getColor = async () => {
     await axios
-      .get(BASE_URL + '/colors')
+      .get(API_URL + '/colors')
       .then((res) => {
         const color = res.data.data;
         console.log('color', color);
@@ -116,7 +117,7 @@ const AddProduct = () => {
 
   const getCondition = async () => {
     await axios
-      .get(BASE_URL + '/condition')
+      .get(API_URL + '/condition')
       .then((res) => {
         const condition = res.data.data;
         console.log('kondisi', condition);
@@ -129,7 +130,7 @@ const AddProduct = () => {
 
   const getStatus = async () => {
     await axios
-      .get(BASE_URL + '/status')
+      .get(API_URL + '/status')
       .then((res) => {
         const status = res.data.data;
         console.log('status', status);
@@ -164,7 +165,7 @@ const AddProduct = () => {
     data.append('status_product_id', sts);
 
     axios
-      .post(BASE_URL + '/products', data, {
+      .post(API_URL + '/products', data, {
         headers: {
           'x-access-token': 'Bearer ' + token,
           'Content-type': 'multipart/form-data',

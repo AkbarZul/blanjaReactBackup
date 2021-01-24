@@ -13,11 +13,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Text from '../../../components/Text';
 import {useSelector} from 'react-redux';
+import {API_URL} from '@env';
 
 
 
 const ShippingAddress = ({navigation}) => {
-  const BASE_URL = 'http://192.168.1.3:9005';
+  // const BASE_URL = 'http://192.168.1.3:9005';
   const [address, setAddress] = useState([]);
   const token = useSelector((state) => state.authReducer.token);
 
@@ -47,7 +48,7 @@ const ShippingAddress = ({navigation}) => {
   const getAddressUser = async () => {
     // const token =  AsyncStorage.getItem('token');
     await axios
-      .get(BASE_URL + '/address', {
+      .get(API_URL + '/address', {
         headers: {
           'x-access-token': 'Bearer ' + token,
         },
