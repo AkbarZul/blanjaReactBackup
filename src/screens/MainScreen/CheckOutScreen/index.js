@@ -254,6 +254,7 @@ import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
 // import {clearCart, clearCheckout} from '../../../utils/redux/action/cartAction';
 import {connect, useSelector} from 'react-redux';
+import { clearCart, clearCheckout } from '../../../utils/redux/action/cartAction';
 import PushNotification from 'react-native-push-notification';
 import {
   showNotification,
@@ -323,6 +324,7 @@ const CheckOut = ({checkout, navigation}) => {
       .catch((err) => {
         console.log(err);
       });
+      clearCart();
     // clearCheckout();
     // clearCart();
   };
@@ -613,12 +615,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     clearCart: () => dispatch(clearCart()),
-//     clearCheckout: () => dispatch(clearCheckout()),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // clearCart: () => dispatch(clearCart()),
+    clearCheckout: () => dispatch(clearCheckout()),
+  };
+};
 
-export default connect(mapStateToProps, null)(CheckOut);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckOut);
 

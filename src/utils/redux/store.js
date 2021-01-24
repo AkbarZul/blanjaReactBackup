@@ -1,4 +1,8 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+
+import { createLogger } from 'redux-logger';
+
+import PromiseMiddleware from 'redux-promise-middleware';
 
 import reducers from './reducer';
 
@@ -11,6 +15,10 @@ const persistConfig = {
     storage: AsyncStorage,
     whitelist: ['authReducer'],
 }
+
+const logger = createLogger();
+
+const enchancer = applyMiddleware(logger, PromiseMiddleware);
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 

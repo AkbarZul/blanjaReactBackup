@@ -27,14 +27,35 @@ export const addToCheckout = (data) => {
   return {
     type: actionTypes.ADD_TO_CHECKOUT,
     payload: data.kirim,
-  }
-}
+  };
+};
+
+export const clearCart = () => {
+  return {
+    type: actionTypes.CLEAR_CART,
+  };
+};
+
+export const clearCheckout = () => {
+  return {
+    type: actionTypes.CLEAR_CHECKOUT,
+  };
+};
 
 export const deleteBag = (itemId) => {
   return {
     type: actionTypes.REMOVE_FROM_BAG,
     payload: {
       id: itemId,
+    },
+  };
+};
+
+export const pickCart = (id) => {
+  return {
+    type: actionTypes.PICK_CART,
+    payload: {
+      id,
     },
   };
 };

@@ -19,12 +19,13 @@ import {
   handleCancel,
   handleScheduledNotification,
 } from '../../../notif';
+import {API_URL} from '@env';
 
 import {colors} from '../../../utils';
 
 const HomeScreen = ({navigation}) => {
   const channel = 'notif';
-  const BASE_URL = 'http://192.168.1.3:9005';
+  // const BASE_URL = 'http://192.168.1.3:9005';
   const [card, setCard] = useState([]);
   const [cardTwo, setCardTwo] = useState([]);
 
@@ -53,7 +54,7 @@ const HomeScreen = ({navigation}) => {
 
   const getDataNew = () => {
     axios
-      .get(BASE_URL + '/sorting?keyword=created_at DESC')
+      .get(API_URL + '/sorting?keyword=created_at DESC&limit=5')
       .then((res) => {
         const card = res.data.data;
         // console.log('DataNew ', res.data.data);
@@ -66,7 +67,7 @@ const HomeScreen = ({navigation}) => {
 
   const getDataPopular = () => {
     axios
-      .get(BASE_URL + '/products?keyword=rating DESC')
+      .get(API_URL + '/products?keyword=rating DESC')
       .then((res) => {
         const cardTwo = res.data.data.products;
         // console.log('DataPopular', cardTwo);
