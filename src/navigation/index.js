@@ -38,6 +38,7 @@ import {
   SuccessScreen,
   AddProduct,
   ProductSeller,
+  RatingAndReview,
 } from '../screens';
 
 import MainProfile from './Profile';
@@ -115,6 +116,16 @@ const StackScreen = ({navigation}) => {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="Rating"
+        component={RatingAndReview}
         options={{headerShown: false}}
       />
       <Stack.Screen name="Cataloge" component={CatalogeScreen} />

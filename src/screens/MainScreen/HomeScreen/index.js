@@ -168,6 +168,11 @@ const HomeScreen = ({navigation}) => {
         <TouchableOpacity>
           <Text children="cancel notification" onPress={handleCancel} />
         </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => navigation.navigate('Rating')}>
+          <Text>
+            test rating
+          </Text>
+        </TouchableOpacity>
         <View style={styles.wrapTitleText}>
           <View>
             <Text children="Popular" size="xl3" style={styles.titeText} />

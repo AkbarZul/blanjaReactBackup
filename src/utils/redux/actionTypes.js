@@ -20,6 +20,7 @@ export const CLEAR_CHECKOUT = 'clear_checkout';
 //Auth
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER';
 
 
 export const pending = `_${ActionType.Pending}`;

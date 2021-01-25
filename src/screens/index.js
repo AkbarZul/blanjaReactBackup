@@ -30,6 +30,7 @@ import SplashScreen from './SplashScreen';
 import SuccessScreen from './SuccessScreen';
 import AddProduct from './MyProfileScreen/AddProductSeller';
 import ProductSeller from './MyProfileScreen/ProductSeller';
+import RatingAndReview from './RatingAndReview';
 
 export {
   LoginScreen,
@@ -60,4 +61,5 @@ export {
   SuccessScreen,
   AddProduct,
   ProductSeller,
+  RatingAndReview,
 };
